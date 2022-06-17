@@ -49,8 +49,8 @@ app.post('/', async (req, res) => {
 })
 
 // UPDATE 
-app.put('/markreading', (req, res) => {
-    tbrBooks.updateOne({ thing: request.body.bookListItems }, {
+app.put('/markreading/:id', (req, res) => {
+    tbrBooks.findByIdAndUpdate({ thing: request.body.bookListItems }, {
         $set: {
             reading: true
         }
@@ -59,8 +59,8 @@ app.put('/markreading', (req, res) => {
         upsert: false
     })
         .then(result => {
-            console.log('Reading') // console logs to let us know that our item has been marked complete
-            response.json('Reading') // sends json data as marked complete
+            console.log('Reading')
+            response.json('Reading')
         })
         .catch(error => console.error(error))
 })

@@ -38,21 +38,25 @@
                         </a>
 
                         <% }else{ %>
-                            <section class="to-be-read-book-title">
-                                <%= item.title %>
+                            <section>
+                                <div class="to-be-read-book-title">
+                                    <%= item.title %>
+                                </div>
+                                <div class="to-be-read-book-author">
+                                    <%= item.author %>
+                                </div>
                             </section>
-                            <section class="to-be-read-book-author">
-                                <%= item.author %>
+                            <section class="button-container-holder">
+                                <a href="" class="read-it">
+                                    <span class="fa-solid fa-book-open-reader"></span>
+                                </a>
+                                <a href="/remove/<%=item._id %>" class="delete">
+                                    <span class="fa-solid fa-trash"></span>
+                                </a>
+                                <a href="/markreading/<%=item._id %>" class="done">
+                                    <span class="fa-solid fa-circle-check"></span>
+                                </a>
                             </section>
-                            <a href="" class="read-it">
-                                <span class="fa-solid fa-book-open-reader"></span>
-                            </a>
-                            <a href="/remove/<%=item._id %>" class="delete">
-                                <span class="fa-solid fa-trash"></span>
-                            </a>
-                            <a href="<%=item._id %>" class="done">
-                                <span class="fa-solid fa-circle-check"></span>
-                            </a>
                             <% } %>
                 </li>
                 <% }) %>
