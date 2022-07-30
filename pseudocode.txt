@@ -1,0 +1,79 @@
+Functionality
+    - currently reading as top list item
+    - already read items at the bottom and crossed through
+    - tbr items in the middle based on when added
+    - able to remove books no longer want to read
+
+Mongodb
+    - Create a new database
+    - Create a collection in that database
+    - create env file to store database connection string
+
+Files needed 
+    - Server.js
+    - index.ejs -- views folder
+    - styles.css --public folder
+    - gitignore
+    - main.js -- views folder
+    - package.json --> list dependencies
+    - .env
+
+Dependencies needed
+    - Mongodb
+    - npm 
+    - express
+    - dotenv
+    - cors
+    - ejs
+    - dev dependency - nodemon
+
+Index.ejs File
+    - Create unordered list
+    - Loop through the list of added books with a for loop or forEach
+    - Create a new li for each item 
+    - Create conditional statement
+        > if not currently reading book
+            - within li, create template that holds:
+                >the book title
+                >read action font awesome icon
+                >remove icon
+                >Check mark to cross it off of list
+        > if currently reading 
+            - within li, create template that holds:
+                >the book title
+                >Style font to be a different color (green, grey, red)
+                >remove icon
+                >Check mark to cross it off of list
+        > if item has been read already (been checked off)
+            - within li, create template that holds:
+                >the book title
+                >Style font transform to add a strike through and color grey 
+    -Create a form with the method of POST 
+        > form has a input box
+        > Action of the form will match the directory for the method
+        > form has a button with a type of submit
+        > Maybe use this in the loop to avoid fetch methods in a main.js file. Would have to skip a PUT method and do a GET and POST instead.
+
+Server. js
+
+    GET
+        - to the root directory
+        - async function req and res
+        - res.render all of the list items in the database
+    POST
+        - Use the Create one express method to add new list items from the form 
+        - Items will be added in an object that should match the params in ejs
+    PUT
+        - Either use the form to do both another GET and POST
+        - Use the express PUT method from Leon's code using an event listener
+    DELETE
+        - The more simple method
+        - express will cycle through each list item to find which one to delete 
+        - use express method update and delete 
+
+CHALLENGES 
+> What is the difference between Mongodb and mongoose schema??
+
+
+FUTURE ADDITIONS
+>Use the goodreads api to pull in book photos/covers and authors
