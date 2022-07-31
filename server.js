@@ -20,6 +20,60 @@ mongoose.connect(process.env.DB_CONNECTION,
     () => { console.log('Connected to database!') })
 
 
+// GET/READ METHOD
+app.get('/', async (req, res) => {
+    try {
+        tbrBooks.find({}, (err, books) => {
+            res.render('index.ejs', { bookListItems: books })
+        })
+    } catch (err) {
+        if (err) return res.status(500).send(err)
+    }
+})
 
+// POST/CREATE METHOD
+app.post('/', async (req, res) => {
+    const book = new tbrBooks(
+        {
+            title: req.body.title,
+            author: req.body.author
+        }
+    )
+    try {
+        await book.save()
+        console.log(book)
+        res.redirect('/')
+    } catch (err) {
+        if (err) return res.status(500).send(err)
+    }
+})
+
+// UPDATE 
+app.put('/markreading', (req, res) => {
+    tbrBooks.updateOne({ thing: request.body.bookListItems }, {
+        $set: {
+            reading: true
+        }
+    }, {
+        sort: { _id: -1 },
+        upsert: false
+    })
+        .then(result => {
+            console.log('Reading') // console logs to let us know that our item has been marked complete
+            response.json('Reading') // sends json data as marked complete
+        })
+        .catch(error => console.error(error))
+})
+
+// DELETE 
+app
+    .route('/remove/:id')
+    .get((req, res) => {
+        const id = req.params.id
+        tbrBooks.findByIdAndRemove(id, err => {
+            if (err) return res.status(500).send(err)
+            res.redirect('/')
+        })
+    })
 // PORT 
 app.listen(PORT, () => console.log(`Server running on ${PORT}`))
